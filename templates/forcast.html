@@ -6,13 +6,18 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css') }}">
 
 </head>
-<body>
+<body style="background-color:#91a3b0;">
     <div id="weatherForccastResults">
         <h2>Weather in {{ location }}</h2>
-        <h2>Current Temperature: {{ temp }}° F</h2>
-        <h3>Weather Description: {{ desc }}</h3>
-        <h4>Max Temperature: {{ maxt }}° F</h4>
-        <h4>Min Temperature: {{ mint }}° F</h4>
+        <h3>Tomorrow's Weather is:</h3>
+        <h3>{{ tdesc }}</h3>
+        <h3>Max Temp: {{ tmax }}° F</h3>
+        <h3>Min Temp: {{ tmin }}° F</h3>
+        <h3>-------------</h3>
+        <h4>Weather on {{ttdate}} is:</h4>
+        <h4>{{ ttdes }}</h4>
+        <h4>Max Temp: {{ ttmax }}° F</h4>
+        <h4>Min Temp: {{ ttmin }}° F</h4>
     </div>
 </body>
 </html>

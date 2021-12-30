@@ -27,18 +27,19 @@ def show_results():
 def show_forcast_results():
     city_search = request.form['citycurrent']  # request from base.html input field
     data = get_api_forcast(city_search)  # call function with ref to city_search
-    return city_search
+    location = data["city"]["name"]
+    tdesc = data["list"][0]["weather"][0]["description"]
+    tmax = data["list"][0]["main"]["temp_max"]
+    tmin = data["list"][0]["main"]["temp_min"]
 
-    '''
-        location = data["list"][1]["name"]
+    ttdate = "{:10}".format(data["list"][8]["dt_txt"])  # two days away date
+    ttmax = data["list"][8]["main"]["temp_max"]
+    ttmin = data["list"][8]["main"]["temp_min"]
+    ttdes = data["list"][8]["weather"][0]["description"]
 
-    temp = "{0:.0f}".format(data["list"][0]["main"]["temp"])  # formatted with 2 decimals
-    maxt = "{0:.0f}".format(data["list"][0]["main"]["temp_max"])
-    mint = "{0:.0f}".format(data["list"][0]["main"]["temp_min"])
-    desc = data["list"][0]["weather"][0]["main"]
-    
-    return render_template('results.html', temp=temp, maxt=maxt, mint=mint, desc=desc, location=location)
-'''
+    return render_template('forcast.html', location=location, tmax=tmax, tmin=tmin, tdesc=tdesc, ttdate=ttdate,
+                           ttdes=ttdes, ttmax=ttmax, ttmin=ttmin, )
+
 
 def get_api_key(city_search):
     api_key = '4b998c307c856e851c23f08fdd34f945'
@@ -57,7 +58,7 @@ def get_api_forcast(city_search):
     website = 'http://api.openweathermap.org/data/2.5/forecast?q='
     # api format:
     # api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
-    api_forcast_call = website + city_search + '&appid=' + api_key
+    api_forcast_call = website + city_search + '&units=imperial&appid=' + api_key
     response = requests.get(api_forcast_call)  # call api from openweather.org
     info = response.json()
     return info

@@ -12,13 +12,11 @@
     <form class="weatherText" id="weatherForm" action="{{ url_for('show_results') }}" method="post">
         Enter City: <input class="weatherText" id="weatherInput" type="text" name="citycurrent" align="left">
         <br>
-        <input class="weatherinputText" id="currentSubmit" type="submit" value="Find Current" align="left">
-    </form>
+        <input class="weatherinputText" id="currentSubmit" type="submit" name="action" value="Find Current" align="left">
         <br>
-    <form class="weatherText" id="weatherForcastForm" action="{{ url_for('show_forcast_results') }}" method="post">
-        <input class="weatherinputText" id="forcastSubmit" type="submit" value="Find 5 Day Forcast" align="left">
+        <input class="weatherinputText" id="forcastSubmit" type="submit" name="action"
+               formaction="{{ url_for('show_forcast_results') }}" value="Find 2 Day Forcast" align="left">
     </form>
-
     </div>
 </body>
 </html>

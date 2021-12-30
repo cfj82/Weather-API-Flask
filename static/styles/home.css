@@ -33,18 +33,18 @@
 #weatherSubmit {
 }
 /* applies to ID */
-#weatherResults{
+#weatherResults, #weatherForccastResults{
     background-color:#e2cfb6;
     font-family: 'sans-serif';
     font-size: 24px;
     padding: 20px;  /* 5px left/right and 20px top/bottom */
     border-radius: 10px;
-    margin: 20px;  /* width size in pixels */
+    margin: 25px;  /* width size in pixels */
     text-align: center;
     display: inline-block; /* formats items: text, buttons, etc.. */
 }
 
 /* change pointer when hover over button */
-#weatherSubmit:hover{
+#currentSubmit, #forcastSubmit:hover{
     cursor: pointer;
 }
