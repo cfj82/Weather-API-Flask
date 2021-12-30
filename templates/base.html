@@ -13,9 +13,12 @@
         Enter City: <input class="weatherText" id="weatherInput" type="text" name="citycurrent" align="left">
         <br>
         <input class="weatherinputText" id="currentSubmit" type="submit" value="Find Current" align="left">
+    </form>
         <br>
+    <form class="weatherText" id="weatherForcastForm" action="{{ url_for('show_forcast_results') }}" method="post">
         <input class="weatherinputText" id="forcastSubmit" type="submit" value="Find 5 Day Forcast" align="left">
     </form>
+
     </div>
 </body>
 </html>
