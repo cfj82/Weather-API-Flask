@@ -13,9 +13,9 @@ def get_weather():
 
 @app.route('/results', methods=["POST"])  # results.html
 def show_results():
-    city_search = request.form['city']
-    data = get_api_key(city_search)
-    temp = "{0:.0f}".format(data["list"][0]["main"]["temp"])
+    city_search = request.form['citycurrent']  # request from base.html input field
+    data = get_api_key(city_search)  # call function with ref to city_search
+    temp = "{0:.0f}".format(data["list"][0]["main"]["temp"])  # formatted with 2 decimals
     maxt = "{0:.0f}".format(data["list"][0]["main"]["temp_max"])
     mint = "{0:.0f}".format(data["list"][0]["main"]["temp_min"])
     desc = data["list"][0]["weather"][0]["main"]
@@ -30,9 +30,9 @@ def get_api_key(city_search):
     # api.openweathermap.org/data/2.5/find?q=London&units=imperial
     api_call = website + city_search + '&units=imperial&appid=' + api_key
     # call api by request
-    response = requests.get(api_call)
+    response = requests.get(api_call)  # call api from openweather.org
     info = response.json()
     return info
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

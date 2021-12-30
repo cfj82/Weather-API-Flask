@@ -1,0 +1,50 @@
+/* applies to all the h2 tags */
+.weatherTexttitle {
+    padding-left: 20px;
+}
+
+/* applies to class */
+.weatherinputText{
+    font-family: 'sans-serif';
+    font-size: 24px;
+    color: white;
+    background-color: #fa8072;
+    padding: 5px 20px;  /* 5px left/right and 20px top/bottom */
+    border-radius: 5px;
+    margin-top: 20px;
+}
+/* applies to class */
+.weatherText{
+    font-family: 'sans-serif';
+    font-size: 24px;
+    color: black;
+    background-color: #dcdcdc;
+    padding: 5px 20px;  /* 5px left/right and 20px top/bottom */
+    border-radius: 5px;
+    margin-top: 20px;
+    margin:20px;
+    display: inline-block; /* formats items: text, buttons, etc.. */
+}
+/* applies to ID */
+#weatherForm {
+    padding: 20px;
+}
+/* applies to ID */
+#weatherSubmit {
+}
+/* applies to ID */
+#weatherResults{
+    background-color:#e2cfb6;
+    font-family: 'sans-serif';
+    font-size: 24px;
+    padding: 20px;  /* 5px left/right and 20px top/bottom */
+    border-radius: 10px;
+    margin: 20px;  /* width size in pixels */
+    text-align: center;
+    display: inline-block; /* formats items: text, buttons, etc.. */
+}
+
+/* change pointer when hover over button */
+#weatherSubmit:hover{
+    cursor: pointer;
+}
