@@ -1,10 +1,11 @@
 # https://openweathermap.org/current#current_JSON
-import requests as requests
 from flask import Flask, render_template, request
 import json
+import urllib.request
 
 app = Flask(__name__)
 
+api_key = '4b998c307c856e851c23f08fdd34f945'
 
 @app.route('/')  # base.html
 def get_weather():
@@ -14,7 +15,12 @@ def get_weather():
 @app.route('/results', methods=["POST"])  # results.html
 def show_results():
     city_search = request.form['citycurrent']  # request from base.html input field
-    data = get_api_key(city_search)  # call function with ref to city_search
+    city_s = city_search.replace(" ","%20")  # to return two word cities with no space
+    website = 'http://api.openweathermap.org/data/2.5/find?q='
+    api_call = urllib.request.urlopen(website + city_s + '&units=imperial&appid=' + api_key).read()
+    # call api by request
+    data = json.loads(api_call)  # call api from openweather.org
+
     temp = "{0:.0f}".format(data["list"][0]["main"]["temp"])  # formatted with 2 decimals
     maxt = "{0:.0f}".format(data["list"][0]["main"]["temp_max"])
     mint = "{0:.0f}".format(data["list"][0]["main"]["temp_min"])
@@ -26,7 +32,13 @@ def show_results():
 @app.route('/forcast', methods=["POST"])  # forcast.html
 def show_forcast_results():
     city_search = request.form['citycurrent']  # request from base.html input field
-    data = get_api_forcast(city_search)  # call function with ref to city_search
+    city_s = city_search.replace(" ","%20")  # to return two word cities with no space
+    website = 'http://api.openweathermap.org/data/2.5/forecast?q='
+    # api format:
+    # https://api.openweathermap.org/data/2.5/forecast?q=ontario&units=imperial&appid=4b998c307c856e851c23f08fdd34f945
+    api_forcast_call = urllib.request.urlopen(website + city_s + '&units=imperial&appid=' + api_key).read()
+    data = json.loads(api_forcast_call)  # call api from openweather.org
+    # variables to populate html
     location = data["city"]["name"]
     tdesc = data["list"][0]["weather"][0]["description"]
     tmax = data["list"][0]["main"]["temp_max"]
@@ -39,30 +51,6 @@ def show_forcast_results():
 
     return render_template('forcast.html', location=location, tmax=tmax, tmin=tmin, tdesc=tdesc, ttdate=ttdate,
                            ttdes=ttdes, ttmax=ttmax, ttmin=ttmin, )
-
-
-def get_api_key(city_search):
-    api_key = '4b998c307c856e851c23f08fdd34f945'
-    website = 'http://api.openweathermap.org/data/2.5/find?q='
-    # api format:  >> openweathermap.org has wrong api call... use below
-    # api.openweathermap.org/data/2.5/find?q=London&units=imperial&appid + api key
-    api_call = website + city_search + '&units=imperial&appid=' + api_key
-    # call api by request
-    response = requests.get(api_call)  # call api from openweather.org
-    info = response.json()
-    return info
-
-
-def get_api_forcast(city_search):
-    api_key = '4b998c307c856e851c23f08fdd34f945'
-    website = 'http://api.openweathermap.org/data/2.5/forecast?q='
-    # api format:
-    # api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
-    api_forcast_call = website + city_search + '&units=imperial&appid=' + api_key
-    response = requests.get(api_forcast_call)  # call api from openweather.org
-    info = response.json()
-    return info
-
 
 if __name__ == "__main__":
     app.run(debug=True)
