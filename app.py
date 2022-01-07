@@ -2,10 +2,14 @@
 from flask import Flask, render_template, request
 import json
 import urllib.request
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-api_key = '4b998c307c856e851c23f08fdd34f945'
+load_dotenv()
+
+api_key = os.getenv("api_key_weather")
 
 @app.route('/')  # base.html
 def get_weather():
@@ -35,7 +39,6 @@ def show_forcast_results():
     city_s = city_search.replace(" ","%20")  # to return two word cities with no space
     website = 'http://api.openweathermap.org/data/2.5/forecast?q='
     # api format:
-    # https://api.openweathermap.org/data/2.5/forecast?q=ontario&units=imperial&appid=4b998c307c856e851c23f08fdd34f945
     api_forcast_call = urllib.request.urlopen(website + city_s + '&units=imperial&appid=' + api_key).read()
     data = json.loads(api_forcast_call)  # call api from openweather.org
     # variables to populate html
